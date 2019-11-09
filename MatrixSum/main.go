@@ -40,6 +40,7 @@ func decomposeMatrix(matrix [][]int) int {
         matrix[max_x][y] = 0;
     }
 
+    fmt.Println(max_val)
     return max_val + decomposeMatrix(matrix);
 }
 
@@ -71,6 +72,7 @@ func main() {
         os.Exit(0)
     }
 
+    // open file and check for error
     var file_name string = os.Args[1]
     file, er := os.Open(file_name)
     defer file.Close() // closes the file once it's no longer needed
@@ -80,25 +82,17 @@ func main() {
         os.Exit(0)
     }
 
+    // create dynamically allocated 2D matrix to hold text matrix
     matrix_length, _ := strconv.Atoi(os.Args[2]);
     var matrix [][]int = make([][]int, matrix_length)
     for i := range matrix {
         matrix[i] = make([]int, matrix_length)
     }
-    fmt.Println(len(matrix), len(matrix[0][:]))
 
+    // reads in matrix from file and puts it in value "matrix"
     readInMatrix(file, &matrix)
-
-
 
     sum := decomposeMatrix(matrix)
     fmt.Println("Matrix sum is: ", sum)
 
-    // testing
-    // for i := 0; i < matrix_length; i++ {
-    //     for j := 0; j < matrix_length; j++ {
-    //         fmt.Print(matrix[i][j], " ")
-    //     }
-    //     fmt.Println("")
-    // }
 }
