@@ -8,6 +8,41 @@ import (
     "strconv"
 )
 
+func decomposeMatrix(matrix [][]int) int {
+
+    max_val := 0
+    max_x := 0
+    max_y := 0
+
+    // find the max value
+    for x := 0; x < len(matrix[0][:]); x++ {
+        for y := 0; y < len(matrix[:]); y++ {
+            if matrix[x][y] > max_val {
+                max_val = matrix[x][y];
+                max_x = x;
+                max_y = y;
+            }
+        }
+    }
+
+    if max_val == 0 {
+        // end condition
+        return 0;
+    }
+
+    // set row to 0
+    for x := 0; x < len(matrix); x++ {
+        matrix[x][max_y] = 0;
+    }
+
+    // set col to 0
+    for y := 0; y < len(matrix); y++ {
+        matrix[max_x][y] = 0;
+    }
+
+    return max_val + decomposeMatrix(matrix);
+}
+
 func readInMatrix(f *os.File, matrix *[][]int) {
     // var matrix [15][15]int;
     input := bufio.NewScanner(f);
@@ -45,21 +80,25 @@ func main() {
         os.Exit(0)
     }
 
-    n, _ := strconv.Atoi(os.Args[2]); // size of array, write func to calcualte later
-    var matrix [][]int = make([][]int, n)
+    matrix_length, _ := strconv.Atoi(os.Args[2]);
+    var matrix [][]int = make([][]int, matrix_length)
     for i := range matrix {
-        matrix[i] = make([]int, n)
+        matrix[i] = make([]int, matrix_length)
     }
     fmt.Println(len(matrix), len(matrix[0][:]))
 
     readInMatrix(file, &matrix)
 
 
+
+    sum := decomposeMatrix(matrix)
+    fmt.Println("Matrix sum is: ", sum)
+
     // testing
-    for i := 0; i < n; i++ {
-        for j := 0; j < n; j++ {
-            fmt.Print(matrix[i][j], " ")
-        }
-    fmt.Println("")
-    }
+    // for i := 0; i < matrix_length; i++ {
+    //     for j := 0; j < matrix_length; j++ {
+    //         fmt.Print(matrix[i][j], " ")
+    //     }
+    //     fmt.Println("")
+    // }
 }

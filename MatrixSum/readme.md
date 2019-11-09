@@ -26,3 +26,11 @@ Find the Matrix Sum of:
  34 124   4 878 450 476 712 914 838 669 875 299 823 329 699
 815 559 813 459 522 788 168 586 966 232 308 833 251 631 107
 813 883 451 509 615  77 281 613 459 205 380 274 302  35 805
+
+## Using this program
+
+This program is a little different than most of the ones I write, in that it takes input arguments. To run this you'll have to have a text file containing a square matrix, and you'll have to pass in the length of one of the sides. The matrix needs to be separated by spaces however it's ok if there are multiple spaces between numbers. I've included the file matrix.txt as an example, which is just the matrix from the example. You can run it with the following command:
+
+```
+go run main.go matrix.txt 15
+```
